@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Evolix.fit</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#F5F7FA;--card:#fff;--ink:#101923;--mute:#64748B;--line:#E2E8F0;--acc:#A3F765;--accink:#101923;--bar:#101923;--barink:#fff;--err:#B42318;--ok:#157F3B;--warn:#92580A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B121A;--card:#101923;--ink:#F5F7FA;--mute:#94A3B8;--line:#223142;--bar:#0B121A;--err:#FDA29B;--ok:#86E3A3;--warn:#FEC84B}}
+:root[data-theme="dark"]{--bg:#0B121A;--card:#101923;--ink:#F5F7FA;--mute:#94A3B8;--line:#223142;--bar:#0B121A;--err:#FDA29B;--ok:#86E3A3;--warn:#FEC84B}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bar);z-index:10}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bar);color:var(--barink);display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding:10px 16px}
+.logo{font-weight:800;font-size:21px;letter-spacing:-.5px;display:flex;align-items:center;gap:8px}
+.logo svg{width:24px;height:24px}.logo b{color:var(--acc)}
+.demo{font-size:12px;background:#92580A;color:#fff;padding:2px 8px;border-radius:99px}
+.seg{display:flex;background:#ffffff1a;border-radius:10px;padding:3px;margin-left:auto}
+.seg button{background:none;border:0;color:var(--barink);padding:8px 14px;border-radius:8px;min-height:40px;font:inherit;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--acc);color:var(--accink);font-weight:700}
+nav{display:flex;gap:4px;overflow-x:auto;padding:8px 12px;background:var(--card);border-bottom:1px solid var(--line)}
+nav button{flex:none;background:none;border:0;color:var(--mute);padding:10px 14px;min-height:44px;font:inherit;cursor:pointer;border-bottom:3px solid transparent}
+nav button[aria-current=page]{color:var(--ink);font-weight:700;border-color:var(--acc)}
+main{max-width:980px;margin:0 auto;padding:16px}
+h2{margin:8px 0 12px;font-size:22px}h3{margin:0 0 8px;font-size:17px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.grid{display:grid;gap:12px}@media(min-width:760px){.grid.two{grid-template-columns:1fr 1fr}}
+label{display:block;font-size:14px;color:var(--mute);margin-bottom:10px}
+input,select,textarea{width:100%;min-height:44px;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;margin-top:4px}
+input[type=checkbox]{width:28px;min-height:28px;margin:0}
+.btn{min-height:44px;padding:9px 16px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:600;cursor:pointer}
+.btn.p{background:var(--acc);color:var(--accink);border-color:var(--acc)}
+.btn.d{color:var(--err)}.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn:focus-visible,input:focus-visible,select:focus-visible,nav button:focus-visible,.seg button:focus-visible{outline:3px solid #3B82F6;outline-offset:2px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.sp{justify-content:space-between}
+.mute{color:var(--mute);font-size:14px}.tag{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:1px 8px;color:var(--mute)}
+.tag.pub{color:var(--ok);border-color:var(--ok)}.tag.dr{color:var(--warn);border-color:var(--warn)}
+.ex{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ph{background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:6px 10px;font-size:13px;color:var(--mute)}
+.set{display:grid;grid-template-columns:28px 1fr 1fr 44px;gap:8px;align-items:center;margin-bottom:6px}
+#timer{position:sticky;bottom:8px;background:var(--bar);color:var(--barink);border-radius:12px;padding:12px 16px;display:none;justify-content:space-between;align-items:center;font-variant-numeric:tabular-nums}
+#timer.on{display:flex}
+.empty{text-align:center;color:var(--mute);padding:24px}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;display:none;z-index:20}
+@media(prefers-reduced-motion:no-preference){.card{transition:border-color .15s}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#A3F765" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 19l6-8 4 4 8-11"/><path d="M15 4h6v6"/></svg>Evolix<b>.fit</b></div>
+ <span class="demo">Demonstração local</span>
+ <div class="seg" role="group" aria-label="Perfil"><button data-act="role" data-v="personal">Personal</button><button data-act="role" data-v="aluno">Aluno</button></div>
+</header>
+<nav id="nav" aria-label="Seções"></nav>
+<main id="app"></main>
+<div style="max-width:980px;margin:0 auto;padding:0 16px"><div id="timer" role="timer" aria-live="off"><span id="tl">Descanso 0:00</span><span class="row"><button class="btn" data-act="tadd">+15s</button><button class="btn" data-act="tstop">Pular</button></span></div></div>
+<div id="toast" role="status"></div>
+<script>
+const LIB=[
+["Supino reto com barra","Peito","Barra"],["Supino inclinado com halteres","Peito","Halteres"],["Crucifixo na polia","Peito","Polia"],
+["Puxada frontal","Costas","Polia"],["Remada curvada","Costas","Barra"],["Remada baixa","Costas","Polia"],
+["Agachamento livre","Pernas","Barra"],["Leg press 45°","Pernas","Máquina"],["Cadeira extensora","Pernas","Máquina"],["Stiff","Posterior","Barra"],
+["Desenvolvimento com halteres","Ombros","Halteres"],["Elevação lateral","Ombros","Halteres"],
+["Rosca direta","Bíceps","Barra"],["Tríceps corda","Tríceps","Polia"],["Prancha","Abdômen","Peso corporal"],["Panturrilha em pé","Panturrilha","Máquina"]
+].map((e,i)=>({id:i,n:e[0],g:e[1],q:e[2]}));
+const K="evolix_demo_v1";
+const uid=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let S;try{S=JSON.parse(localStorage.getItem(K))}catch(e){}
+S=S||{students:[],workouts:[],sessions:[],active:null};
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const U={role:"personal",tab:"alunos",sid:"",draft:null,dirty:false,fg:"",fq:"",rest:0};
+const TABS={personal:[["alunos","Alunos"],["montador","Montador de treinos"],["biblio","Biblioteca"]],aluno:[["treino","Meu treino"],["hist","Histórico"]]};
+const $=s=>document.querySelector(s);
+function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",2600)}
+const stu=id=>S.students.find(s=>s.id===id);
+const pubOf=sid=>S.workouts.filter(w=>w.sid===sid&&w.status==="publicado").sort((a,b)=>b.v-a.v)[0];
+const stuOpts=sel=>S.students.map(s=>`<option value="${s.id}" ${s.id===sel?"selected":""}>${esc(s.name)}</option>`).join("");
+const fmt=s=>Math.floor(s/60)+":"+String(Math.max(0,Math.floor(s%60))).padStart(2,"0");
+
+function render(){
+ document.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===U.role));
+ $("#nav").innerHTML=TABS[U.role].map(t=>`<button data-act="tab" data-v="${t[0]}" ${U.tab===t[0]?'aria-current="page"':""}>${t[1]}</button>`).join("");
+ const v={alunos:vAlunos,montador:vMont,biblio:vBiblio,treino:vTreino,hist:vHist}[U.tab];
+ $("#app").innerHTML=v();
+}
+function vAlunos(){
+ return `<h2>Alunos</h2><form class="card" data-form="aluno"><div class="row"><label style="flex:1;min-width:200px;margin:0">Nome do aluno<input name="n" required maxlength="80" autocomplete="off"></label><button class="btn p" style="align-self:end">Cadastrar aluno</button></div></form>`+
+ (S.students.length?S.students.map(s=>{const p=pubOf(s.id),n=S.sessions.filter(x=>x.sid===s.id).length;
+ return `<div class="card row sp"><div><h3>${esc(s.name)}</h3><span class="mute">${p?"Treino publicado: "+esc(p.name)+" (v"+p.v+")":"Sem treino publicado"} — ${n} sessão(ões) concluída(s)</span></div><span class="row"><button class="btn" data-act="build" data-v="${s.id}">Criar treino</button><button class="btn d" data-act="delstu" data-v="${s.id}">Remover</button></span></div>`}).join(""):`<div class="card empty">Nenhum aluno ainda. Cadastre o primeiro acima para montar um treino.</div>`);
+}
+function vBiblio(){return `<h2>Biblioteca de exercícios</h2><p class="mute">Demonstração com ${LIB.length} exercícios. Mídias ilustrativas ainda não carregadas: cada exercício mostra um espaço reservado.</p>`+libFilter()+`<div class="grid two">${libList(false)}</div>`}
+function libFilter(){const gs=[...new Set(LIB.map(e=>e.g))];
+ return `<div class="row" style="margin-bottom:10px"><label style="flex:1;min-width:160px;margin:0">Buscar<input data-f="fq" value="${esc(U.fq)}" placeholder="Nome do exercício"></label><label style="margin:0">Grupo muscular<select data-f="fg"><option value="">Todos</option>${gs.map(g=>`<option ${g===U.fg?"selected":""}>${g}</option>`).join("")}</select></label></div>`}
+function libList(add){const q=U.fq.toLowerCase();const l=LIB.filter(e=>(!U.fg||e.g===U.fg)&&(!q||e.n.toLowerCase().includes(q)));
+ return l.length?l.map(e=>`<div class="card"><div class="row sp"><div><strong>${e.n}</strong><div class="mute">${e.g} · ${e.q}</div></div>${add?`<button class="btn p" data-act="addex" data-v="${e.id}" aria-label="Adicionar ${e.n}">Adicionar</button>`:""}</div><div class="ph" style="margin-top:8px">Mídia demonstrativa pendente (fonte e licença a definir)</div></div>`).join(""):`<div class="empty">Nenhum exercício encontrado. Limpe os filtros.</div>`}
+function vMont(){
+ if(!S.students.length)return `<h2>Montador de treinos</h2><div class="card empty">Cadastre um aluno na aba Alunos para começar.</div>`;
+ if(!U.draft)U.draft={id:uid(),sid:U.sid||S.students[0].id,name:"",goal:"",notes:"",items:[],status:"rascunho",v:1};
+ const d=U.draft;
+ const mine=S.workouts.filter(w=>w.sid===d.sid).sort((a,b)=>b.v-a.v);
+ return `<h2>Montador de treinos</h2><div class="grid two"><div>
+ <div class="card"><label>Aluno<select data-d="sid">${stuOpts(d.sid)}</select></label>
+ <label>Nome do treino (ex.: Treino A — Peito e tríceps)<input data-d="name" value="${esc(d.name)}" maxlength="80"></label>
+ <label>Objetivo<input data-d="goal" value="${esc(d.goal)}" maxlength="120"></label>
+ <label>Observações para o aluno<textarea data-d="notes" rows="2" maxlength="400">${esc(d.notes)}</textarea></label></div>
+ <h3>Exercícios do treino (${d.items.length})</h3>
+ ${d.items.length?d.items.map((it,i)=>{const e=LIB[it.ex];return `<div class="card"><div class="row sp"><strong>${i+1}. ${e.n}</strong><span class="row"><button class="btn" data-act="up" data-v="${i}" ${i?"":"disabled"} aria-label="Mover para cima">Subir</button><button class="btn" data-act="dn" data-v="${i}" ${i<d.items.length-1?"":"disabled"} aria-label="Mover para baixo">Descer</button><button class="btn" data-act="dup" data-v="${i}">Duplicar</button><button class="btn d" data-act="rm" data-v="${i}">Remover</button></span></div>
+ <div class="ex" style="margin-top:8px"><label>Séries<input type="number" min="1" max="12" data-i="${i}" data-k="sets" value="${it.sets}"></label><label>Repetições<input data-i="${i}" data-k="reps" value="${esc(it.reps)}" maxlength="12"></label><label>Carga (kg)<input type="number" min="0" step="0.5" data-i="${i}" data-k="load" value="${esc(it.load)}"></label><label>Descanso (s)<input type="number" min="0" max="600" data-i="${i}" data-k="rest" value="${it.rest}"></label></div></div>`}).join(""):`<div class="card empty">Treino vazio. Escolha exercícios na biblioteca ao lado.</div>`}
+ <div class="row"><button class="btn" data-act="draft">Salvar rascunho</button><button class="btn p" data-act="publish">Publicar para o aluno</button><button class="btn" data-act="newd">Novo treino</button></div>
+ ${U.dirty?`<p class="mute" role="status">Alterações não salvas.</p>`:""}
+ ${mine.length?`<h3 style="margin-top:16px">Versões deste aluno</h3>`+mine.map(w=>`<div class="card row sp"><span>${esc(w.name||"Sem nome")} <span class="tag ${w.status==="publicado"?"pub":"dr"}">${w.status}</span> <span class="mute">v${w.v}</span></span><button class="btn" data-act="open" data-v="${w.id}">Abrir</button></div>`).join(""):""}
+ </div><div><h3>Biblioteca</h3>${libFilter()}<div id="lib">${libList(true)}</div></div></div>`;
+}
+function vTreino(){
+ if(!S.students.length)return `<h2>Meu treino</h2><div class="card empty">Nenhum aluno cadastrado. Peça ao personal para cadastrar você (aba Personal &gt; Alunos).</div>`;
+ if(!U.sid||!stu(U.sid))U.sid=S.students[0].id;
+ const who=`<label>Você é (identidade de demonstração, sem login real)<select data-f="sid">${stuOpts(U.sid)}</select></label>`;
+ const a=S.active&&S.active.sid===U.sid?S.active:null;
+ if(a){const w=S.workouts.find(x=>x.id===a.wid);
+  return `<h2>${esc(w.name||"Treino")}</h2>${who}${w.notes?`<p class="mute">Observação do profissional: ${esc(w.notes)}</p>`:""}`+
+  w.items.map((it,i)=>{const e=LIB[it.ex];return `<div class="card"><h3>${e.n}</h3><div class="mute">Prescrito: ${it.sets}×${esc(it.reps)}${it.load!==""?" · "+esc(it.load)+" kg":""} · descanso ${it.rest}s · ${e.g}</div><div class="ph" style="margin:8px 0">Mídia demonstrativa pendente</div>`+
+  a.logs[i].map((l,j)=>`<div class="set"><span class="mute">${j+1}</span><input type="number" step="0.5" min="0" placeholder="kg (${esc(it.load)||"—"})" data-l="${i}.${j}" data-k="load" value="${esc(l.load)}" aria-label="Carga realizada série ${j+1}"><input type="number" min="0" placeholder="reps (${esc(it.reps)})" data-l="${i}.${j}" data-k="reps" value="${esc(l.reps)}" aria-label="Repetições realizadas série ${j+1}"><input type="checkbox" data-l="${i}.${j}" data-k="done" data-rest="${it.rest}" ${l.done?"checked":""} aria-label="Série ${j+1} concluída"></div>`).join("")+`</div>`}).join("")+
+  `<div class="row"><button class="btn p" data-act="finish">Finalizar treino</button><button class="btn d" data-act="cancel">Descartar sessão</button></div><p class="mute">Você pode sair e voltar: os registros ficam salvos neste dispositivo.</p>`;
+ }
+ const p=pubOf(U.sid);
+ return `<h2>Meu treino</h2>${who}`+(p?`<div class="card"><h3>${esc(p.name||"Treino")}</h3><div class="mute">${esc(p.goal)} · ${p.items.length} exercício(s) · versão ${p.v}</div><ul>${p.items.map(it=>`<li>${LIB[it.ex].n} — ${it.sets}×${esc(it.reps)}</li>`).join("")}</ul><button class="btn p" data-act="start" data-v="${p.id}" ${p.items.length?"":"disabled"}>Iniciar treino</button></div>`:`<div class="card empty">Nenhum treino publicado para você ainda. Quando o personal publicar, ele aparece aqui.</div>`);
+}
+function vHist(){
+ if(!S.students.length)return `<h2>Histórico</h2><div class="card empty">Sem alunos cadastrados.</div>`;
+ if(!U.sid||!stu(U.sid))U.sid=S.students[0].id;
+ const l=S.sessions.filter(x=>x.sid===U.sid).sort((a,b)=>b.end-a.end);
+ return `<h2>Histórico</h2><label>Aluno<select data-f="sid">${stuOpts(U.sid)}</select></label>`+(l.length?l.map(s=>{const w=S.workouts.find(x=>x.id===s.wid);const sets=s.logs.flat().filter(x=>x.done).length;
+ const vol=s.logs.flat().filter(x=>x.done).reduce((t,x)=>t+(+x.load||0)*(+x.reps||0),0);
+ return `<div class="card"><div class="row sp"><strong>${esc(w?w.name:"Treino")}</strong><span class="mute">${new Date(s.end).toLocaleString("pt-BR")}</span></div><div class="mute">Duração: ${fmt((s.end-s.start)/1000)} · ${sets} série(s) concluída(s) · volume ${Math.round(vol)} kg</div></div>`}).join(""):`<div class="card empty">Nenhuma sessão concluída. Inicie um treino em Meu treino.</div>`);
+}
+
+/* timer de descanso (baseado em horário, não em contagem) */
+let tEnd=0,tInt=null;
+function tick(){const r=Math.ceil((tEnd-Date.now())/1000);if(r<=0){tstop();toast("Descanso terminado");try{navigator.vibrate&&navigator.vibrate(200)}catch(e){}return}$("#tl").textContent="Descanso "+fmt(r)}
+function tstart(s){if(!s)return;tEnd=Date.now()+s*1000;$("#timer").classList.add("on");clearInterval(tInt);tInt=setInterval(tick,250);tick()}
+function tstop(){clearInterval(tInt);$("#timer").classList.remove("on")}
+
+function saveDraft(status){
+ const d=U.draft;
+ if(status==="publicado"){
+  if(!d.name.trim())return toast("Dê um nome ao treino antes de publicar.");
+  if(!d.items.length)return toast("Adicione ao menos um exercício.");
+ }
+ const prev=S.workouts.filter(w=>w.sid===d.sid&&w.status==="publicado");
+ if(status==="publicado"){
+  const mx=Math.max(0,...S.workouts.filter(w=>w.sid===d.sid).map(w=>w.v));
+  prev.forEach(w=>w.status="arquivado");
+  const ex=S.workouts.find(w=>w.id===d.id);
+  if(ex&&ex.status==="rascunho"){d.v=mx+1}else if(ex){d.id=uid();d.v=mx+1}else d.v=mx+1;
+ }
+ d.status=status;
+ const i=S.workouts.findIndex(w=>w.id===d.id);
+ const copy=JSON.parse(JSON.stringify(d));
+ if(i>=0)S.workouts[i]=copy;else S.workouts.push(copy);
+ U.dirty=false;save();toast(status==="publicado"?"Publicado. O aluno já pode ver o treino.":"Rascunho salvo.");render();
+}
+
+document.addEventListener("click",e=>{
+ const b=e.target.closest("[data-act]");if(!b)return;const a=b.dataset.act,v=b.dataset.v,d=U.draft;
+ if(a==="role"){if(U.dirty&&!confirm("Há alterações não salvas no montador. Sair mesmo assim?"))return;U.role=v;U.tab=TABS[v][0][0];render()}
+ else if(a==="tab"){if(U.tab==="montador"&&U.dirty&&!confirm("Há alterações não salvas. Sair mesmo assim?"))return;U.tab=v;render()}
+ else if(a==="build"){U.sid=v;U.draft=null;U.dirty=false;U.tab="montador";render()}
+ else if(a==="delstu"){if(confirm("Remover este aluno? O histórico dele também será removido deste dispositivo.")){S.students=S.students.filter(s=>s.id!==v);S.workouts=S.workouts.filter(w=>w.sid!==v);S.sessions=S.sessions.filter(s=>s.sid!==v);if(S.active&&S.active.sid===v)S.active=null;U.draft=null;save();render()}}
+ else if(a==="addex"){d.items.push({ex:+v,sets:3,reps:"10",load:"",rest:60});U.dirty=true;render()}
+ else if(a==="up"||a==="dn"){const i=+v,j=a==="up"?i-1:i+1;[d.items[i],d.items[j]]=[d.items[j],d.items[i]];U.dirty=true;render()}
+ else if(a==="dup"){d.items.splice(+v+1,0,{...d.items[+v]});U.dirty=true;render()}
+ else if(a==="rm"){d.items.splice(+v,1);U.dirty=true;render()}
+ else if(a==="draft"){saveDraft("rascunho")}
+ else if(a==="publish"){saveDraft("publicado")}
+ else if(a==="newd"){if(U.dirty&&!confirm("Descartar alterações não salvas?"))return;U.draft=null;U.dirty=false;render()}
+ else if(a==="open"){const w=S.workouts.find(x=>x.id===v);U.draft=JSON.parse(JSON.stringify(w));U.dirty=false;render()}
+ else if(a==="start"){const w=S.workouts.find(x=>x.id===v);S.active={wid:v,sid:U.sid,start:Date.now(),logs:w.items.map(it=>Array.from({length:it.sets},()=>({load:"",reps:"",done:false})))};save();render()}
+ else if(a==="cancel"){if(confirm("Descartar esta sessão? Os registros serão perdidos.")){S.active=null;tstop();save();render()}}
+ else if(a==="finish"){const n=S.active.logs.flat().filter(x=>x.done).length;if(!n&&!confirm("Nenhuma série foi marcada como concluída. Finalizar mesmo assim?"))return;
+  S.sessions.push({id:uid(),wid:S.active.wid,sid:S.active.sid,start:S.active.start,end:Date.now(),logs:S.active.logs});S.active=null;tstop();save();toast("Treino finalizado e registrado.");U.tab="hist";render()}
+ else if(a==="tadd"){tEnd+=15000;tick()}
+ else if(a==="tstop"){tstop()}
+});
+document.addEventListener("submit",e=>{e.preventDefault();const f=e.target;if(f.dataset.form==="aluno"){const n=f.n.value.trim();if(!n)return toast("Informe o nome do aluno.");S.students.push({id:uid(),name:n});save();toast("Aluno cadastrado.");render()}});
+document.addEventListener("input",e=>{
+ const t=e.target;
+ if(t.dataset.d){U.draft[t.dataset.d]=t.value;U.dirty=true;if(t.dataset.d==="sid"){render()}}
+ else if(t.dataset.i!==undefined){const it=U.draft.items[+t.dataset.i],k=t.dataset.k;it[k]=(k==="sets"||k==="rest")?Math.max(0,parseInt(t.value)||0):t.value;U.dirty=true}
+ else if(t.dataset.f==="fq"){U.fq=t.value;const l=$("#lib")||$(".grid.two");if(U.tab==="montador")$("#lib").innerHTML=libList(true);else render();if(U.tab==="biblio"){const i=$("[data-f=fq]");i.focus();i.setSelectionRange(99,99)}}
+ else if(t.dataset.l){const[i,j]=t.dataset.l.split(".").map(Number),k=t.dataset.k,l=S.active.logs[i][j];
+  if(k==="done"){l.done=t.checked;if(t.checked)tstart(+t.dataset.rest)}else l[k]=t.value;save()}
+});
+document.addEventListener("change",e=>{const t=e.target;
+ if(t.dataset.f==="fg"){U.fg=t.value;render()}
+ else if(t.dataset.f==="sid"){U.sid=t.value;render()}
+});
+window.addEventListener("beforeunload",e=>{if(U.dirty){e.preventDefault();e.returnValue=""}});
+render();
+</script>
+</body>
+</html>
