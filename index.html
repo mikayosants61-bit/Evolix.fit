@@ -5,200 +5,205 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Evolix.fit</title>
 <style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
---bg:#F5F7FA;--card:#fff;--ink:#101923;--mute:#64748B;--line:#E2E8F0;--acc:#A3F765;--accink:#101923;--bar:#101923;--barink:#fff;--err:#B42318;--ok:#157F3B;--warn:#92580A}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B121A;--card:#101923;--ink:#F5F7FA;--mute:#94A3B8;--line:#223142;--bar:#0B121A;--err:#FDA29B;--ok:#86E3A3;--warn:#FEC84B}}
-:root[data-theme="dark"]{--bg:#0B121A;--card:#101923;--ink:#F5F7FA;--mute:#94A3B8;--line:#223142;--bar:#0B121A;--err:#FDA29B;--ok:#86E3A3;--warn:#FEC84B}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bar);z-index:10}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bar);color:var(--barink);display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding:10px 16px}
-.logo{font-weight:800;font-size:21px;letter-spacing:-.5px;display:flex;align-items:center;gap:8px}
-.logo svg{width:24px;height:24px}.logo b{color:var(--acc)}
-.demo{font-size:12px;background:#92580A;color:#fff;padding:2px 8px;border-radius:99px}
-.seg{display:flex;background:#ffffff1a;border-radius:10px;padding:3px;margin-left:auto}
-.seg button{background:none;border:0;color:var(--barink);padding:8px 14px;border-radius:8px;min-height:40px;font:inherit;cursor:pointer}
-.seg button[aria-pressed=true]{background:var(--acc);color:var(--accink);font-weight:700}
-nav{display:flex;gap:4px;overflow-x:auto;padding:8px 12px;background:var(--card);border-bottom:1px solid var(--line)}
-nav button{flex:none;background:none;border:0;color:var(--mute);padding:10px 14px;min-height:44px;font:inherit;cursor:pointer;border-bottom:3px solid transparent}
+:root{--bg:#F5F7FA;--card:#fff;--ink:#101923;--mute:#64748B;--line:#E2E8F0;--acc:#A3F765;--bar:#101923;--err:#B42318;--ok:#157F3B}
+@media(prefers-color-scheme:dark){:root{--bg:#0B121A;--card:#101923;--ink:#F5F7FA;--mute:#94A3B8;--line:#223142;--bar:#0B121A;--err:#FDA29B;--ok:#86E3A3}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+header{background:var(--bar);color:#fff;display:flex;gap:12px;align-items:center;padding:10px 16px;flex-wrap:wrap}
+.logo{font-weight:800;font-size:21px}.logo b{color:var(--acc)}
+#who{margin-left:auto;font-size:14px;opacity:.85}
+nav{display:flex;overflow-x:auto;background:var(--card);border-bottom:1px solid var(--line)}
+nav button{flex:none;background:none;border:0;border-bottom:3px solid transparent;color:var(--mute);padding:10px 14px;min-height:44px;font:inherit;cursor:pointer}
 nav button[aria-current=page]{color:var(--ink);font-weight:700;border-color:var(--acc)}
-main{max-width:980px;margin:0 auto;padding:16px}
-h2{margin:8px 0 12px;font-size:22px}h3{margin:0 0 8px;font-size:17px}
+main{max-width:900px;margin:0 auto;padding:16px}
+h2{margin:6px 0 12px;font-size:22px}h3{margin:0 0 6px;font-size:17px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
-.grid{display:grid;gap:12px}@media(min-width:760px){.grid.two{grid-template-columns:1fr 1fr}}
 label{display:block;font-size:14px;color:var(--mute);margin-bottom:10px}
-input,select,textarea{width:100%;min-height:44px;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;margin-top:4px}
+input,select{width:100%;min-height:44px;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;margin-top:4px}
 input[type=checkbox]{width:28px;min-height:28px;margin:0}
 .btn{min-height:44px;padding:9px 16px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:600;cursor:pointer}
-.btn.p{background:var(--acc);color:var(--accink);border-color:var(--acc)}
-.btn.d{color:var(--err)}.btn:disabled{opacity:.5;cursor:not-allowed}
-.btn:focus-visible,input:focus-visible,select:focus-visible,nav button:focus-visible,.seg button:focus-visible{outline:3px solid #3B82F6;outline-offset:2px}
+.btn.p{background:var(--acc);color:#101923;border-color:var(--acc)}.btn.d{color:var(--err)}.btn:disabled{opacity:.5}
+:focus-visible{outline:3px solid #3B82F6;outline-offset:2px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.sp{justify-content:space-between}
 .mute{color:var(--mute);font-size:14px}.tag{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:1px 8px;color:var(--mute)}
-.tag.pub{color:var(--ok);border-color:var(--ok)}.tag.dr{color:var(--warn);border-color:var(--warn)}
-.ex{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.ph{background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:6px 10px;font-size:13px;color:var(--mute)}
-.set{display:grid;grid-template-columns:28px 1fr 1fr 44px;gap:8px;align-items:center;margin-bottom:6px}
-#timer{position:sticky;bottom:8px;background:var(--bar);color:var(--barink);border-radius:12px;padding:12px 16px;display:none;justify-content:space-between;align-items:center;font-variant-numeric:tabular-nums}
-#timer.on{display:flex}
-.empty{text-align:center;color:var(--mute);padding:24px}
-#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;display:none;z-index:20}
-@media(prefers-reduced-motion:no-preference){.card{transition:border-color .15s}}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.set{display:grid;grid-template-columns:24px 1fr 1fr 44px;gap:8px;align-items:center;margin-bottom:6px}
+.empty{text-align:center;color:var(--mute);padding:20px}
+#timer{display:none;position:sticky;bottom:8px;margin:0 16px;background:var(--bar);color:#fff;border-radius:12px;padding:12px 16px;justify-content:space-between;align-items:center}#timer.on{display:flex}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;display:none;z-index:9;max-width:90vw}
+code{word-break:break-all;background:var(--bg);padding:2px 6px;border-radius:6px;font-size:13px}
 </style>
 </head>
 <body>
-<header>
- <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#A3F765" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 19l6-8 4 4 8-11"/><path d="M15 4h6v6"/></svg>Evolix<b>.fit</b></div>
- <span class="demo">Demonstração local</span>
- <div class="seg" role="group" aria-label="Perfil"><button data-act="role" data-v="personal">Personal</button><button data-act="role" data-v="aluno">Aluno</button></div>
-</header>
+<header><div class="logo">Evolix<b>.fit</b></div><span id="who"></span><button class="btn" id="out" style="display:none;min-height:36px;padding:4px 12px">Sair</button></header>
 <nav id="nav" aria-label="Seções"></nav>
-<main id="app"></main>
-<div style="max-width:980px;margin:0 auto;padding:0 16px"><div id="timer" role="timer" aria-live="off"><span id="tl">Descanso 0:00</span><span class="row"><button class="btn" data-act="tadd">+15s</button><button class="btn" data-act="tstop">Pular</button></span></div></div>
+<main id="app">Carregando…</main>
+<div id="timer" role="timer"><span id="tl"></span><button class="btn" data-act="tstop">Pular</button></div>
 <div id="toast" role="status"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
-const LIB=[
-["Supino reto com barra","Peito","Barra"],["Supino inclinado com halteres","Peito","Halteres"],["Crucifixo na polia","Peito","Polia"],
-["Puxada frontal","Costas","Polia"],["Remada curvada","Costas","Barra"],["Remada baixa","Costas","Polia"],
-["Agachamento livre","Pernas","Barra"],["Leg press 45°","Pernas","Máquina"],["Cadeira extensora","Pernas","Máquina"],["Stiff","Posterior","Barra"],
-["Desenvolvimento com halteres","Ombros","Halteres"],["Elevação lateral","Ombros","Halteres"],
-["Rosca direta","Bíceps","Barra"],["Tríceps corda","Tríceps","Polia"],["Prancha","Abdômen","Peso corporal"],["Panturrilha em pé","Panturrilha","Máquina"]
-].map((e,i)=>({id:i,n:e[0],g:e[1],q:e[2]}));
-const K="evolix_demo_v1";
-const uid=()=>Math.random().toString(36).slice(2,9);
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let S;try{S=JSON.parse(localStorage.getItem(K))}catch(e){}
-S=S||{students:[],workouts:[],sessions:[],active:null};
-const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
-const U={role:"personal",tab:"alunos",sid:"",draft:null,dirty:false,fg:"",fq:"",rest:0};
-const TABS={personal:[["alunos","Alunos"],["montador","Montador de treinos"],["biblio","Biblioteca"]],aluno:[["treino","Meu treino"],["hist","Histórico"]]};
+/* Preencha com a URL e a chave ANON (pública) do seu projeto Supabase. NUNCA use a service_role aqui. */
+const SUPABASE_URL = "";
+const SUPABASE_ANON_KEY = "";
+
+const ls={g:k=>{try{return localStorage.getItem(k)||""}catch(e){return ""}},s:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+const cfg={url:SUPABASE_URL||ls.g("evx_url"),key:SUPABASE_ANON_KEY||ls.g("evx_key")};
 const $=s=>document.querySelector(s);
-function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",2600)}
-const stu=id=>S.students.find(s=>s.id===id);
-const pubOf=sid=>S.workouts.filter(w=>w.sid===sid&&w.status==="publicado").sort((a,b)=>b.v-a.v)[0];
-const stuOpts=sel=>S.students.map(s=>`<option value="${s.id}" ${s.id===sel?"selected":""}>${esc(s.name)}</option>`).join("");
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const RP={owner:"Dono",manager:"Gestor",trainer:"Personal",student:"Aluno"};
 const fmt=s=>Math.floor(s/60)+":"+String(Math.max(0,Math.floor(s%60))).padStart(2,"0");
+let sb,U={mode:"login",user:null,mems:[],org:null,tab:null,b:null,s:null,plans:[],lib:[]};
+const oid=()=>U.org.org_id, staff=()=>["owner","manager"].includes(U.org.role), trainer=()=>U.org.role!=="student";
+function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",3500)}
+async function q(p){const r=await p;if(r.error){const m=r.error.message||"";
+ toast(/row-level security|permission denied/i.test(m)?"Sem permissão para esta ação.":/foreign key/i.test(m)?"Registro não encontrado. Confira o ID.":/duplicate key|already/i.test(m)?"Esse registro já existe.":/limit_reached/.test(m)?"Limite de organizações atingido.":/version_empty/.test(m)?"Adicione ao menos um exercício antes de publicar.":m);throw r.error}return r.data}
+const show=h=>{$("#app").innerHTML=h;};
 
-function render(){
- document.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===U.role));
- $("#nav").innerHTML=TABS[U.role].map(t=>`<button data-act="tab" data-v="${t[0]}" ${U.tab===t[0]?'aria-current="page"':""}>${t[1]}</button>`).join("");
- const v={alunos:vAlunos,montador:vMont,biblio:vBiblio,treino:vTreino,hist:vHist}[U.tab];
- $("#app").innerHTML=v();
-}
-function vAlunos(){
- return `<h2>Alunos</h2><form class="card" data-form="aluno"><div class="row"><label style="flex:1;min-width:200px;margin:0">Nome do aluno<input name="n" required maxlength="80" autocomplete="off"></label><button class="btn p" style="align-self:end">Cadastrar aluno</button></div></form>`+
- (S.students.length?S.students.map(s=>{const p=pubOf(s.id),n=S.sessions.filter(x=>x.sid===s.id).length;
- return `<div class="card row sp"><div><h3>${esc(s.name)}</h3><span class="mute">${p?"Treino publicado: "+esc(p.name)+" (v"+p.v+")":"Sem treino publicado"} — ${n} sessão(ões) concluída(s)</span></div><span class="row"><button class="btn" data-act="build" data-v="${s.id}">Criar treino</button><button class="btn d" data-act="delstu" data-v="${s.id}">Remover</button></span></div>`}).join(""):`<div class="card empty">Nenhum aluno ainda. Cadastre o primeiro acima para montar um treino.</div>`);
-}
-function vBiblio(){return `<h2>Biblioteca de exercícios</h2><p class="mute">Demonstração com ${LIB.length} exercícios. Mídias ilustrativas ainda não carregadas: cada exercício mostra um espaço reservado.</p>`+libFilter()+`<div class="grid two">${libList(false)}</div>`}
-function libFilter(){const gs=[...new Set(LIB.map(e=>e.g))];
- return `<div class="row" style="margin-bottom:10px"><label style="flex:1;min-width:160px;margin:0">Buscar<input data-f="fq" value="${esc(U.fq)}" placeholder="Nome do exercício"></label><label style="margin:0">Grupo muscular<select data-f="fg"><option value="">Todos</option>${gs.map(g=>`<option ${g===U.fg?"selected":""}>${g}</option>`).join("")}</select></label></div>`}
-function libList(add){const q=U.fq.toLowerCase();const l=LIB.filter(e=>(!U.fg||e.g===U.fg)&&(!q||e.n.toLowerCase().includes(q)));
- return l.length?l.map(e=>`<div class="card"><div class="row sp"><div><strong>${e.n}</strong><div class="mute">${e.g} · ${e.q}</div></div>${add?`<button class="btn p" data-act="addex" data-v="${e.id}" aria-label="Adicionar ${e.n}">Adicionar</button>`:""}</div><div class="ph" style="margin-top:8px">Mídia demonstrativa pendente (fonte e licença a definir)</div></div>`).join(""):`<div class="empty">Nenhum exercício encontrado. Limpe os filtros.</div>`}
-function vMont(){
- if(!S.students.length)return `<h2>Montador de treinos</h2><div class="card empty">Cadastre um aluno na aba Alunos para começar.</div>`;
- if(!U.draft)U.draft={id:uid(),sid:U.sid||S.students[0].id,name:"",goal:"",notes:"",items:[],status:"rascunho",v:1};
- const d=U.draft;
- const mine=S.workouts.filter(w=>w.sid===d.sid).sort((a,b)=>b.v-a.v);
- return `<h2>Montador de treinos</h2><div class="grid two"><div>
- <div class="card"><label>Aluno<select data-d="sid">${stuOpts(d.sid)}</select></label>
- <label>Nome do treino (ex.: Treino A — Peito e tríceps)<input data-d="name" value="${esc(d.name)}" maxlength="80"></label>
- <label>Objetivo<input data-d="goal" value="${esc(d.goal)}" maxlength="120"></label>
- <label>Observações para o aluno<textarea data-d="notes" rows="2" maxlength="400">${esc(d.notes)}</textarea></label></div>
- <h3>Exercícios do treino (${d.items.length})</h3>
- ${d.items.length?d.items.map((it,i)=>{const e=LIB[it.ex];return `<div class="card"><div class="row sp"><strong>${i+1}. ${e.n}</strong><span class="row"><button class="btn" data-act="up" data-v="${i}" ${i?"":"disabled"} aria-label="Mover para cima">Subir</button><button class="btn" data-act="dn" data-v="${i}" ${i<d.items.length-1?"":"disabled"} aria-label="Mover para baixo">Descer</button><button class="btn" data-act="dup" data-v="${i}">Duplicar</button><button class="btn d" data-act="rm" data-v="${i}">Remover</button></span></div>
- <div class="ex" style="margin-top:8px"><label>Séries<input type="number" min="1" max="12" data-i="${i}" data-k="sets" value="${it.sets}"></label><label>Repetições<input data-i="${i}" data-k="reps" value="${esc(it.reps)}" maxlength="12"></label><label>Carga (kg)<input type="number" min="0" step="0.5" data-i="${i}" data-k="load" value="${esc(it.load)}"></label><label>Descanso (s)<input type="number" min="0" max="600" data-i="${i}" data-k="rest" value="${it.rest}"></label></div></div>`}).join(""):`<div class="card empty">Treino vazio. Escolha exercícios na biblioteca ao lado.</div>`}
- <div class="row"><button class="btn" data-act="draft">Salvar rascunho</button><button class="btn p" data-act="publish">Publicar para o aluno</button><button class="btn" data-act="newd">Novo treino</button></div>
- ${U.dirty?`<p class="mute" role="status">Alterações não salvas.</p>`:""}
- ${mine.length?`<h3 style="margin-top:16px">Versões deste aluno</h3>`+mine.map(w=>`<div class="card row sp"><span>${esc(w.name||"Sem nome")} <span class="tag ${w.status==="publicado"?"pub":"dr"}">${w.status}</span> <span class="mute">v${w.v}</span></span><button class="btn" data-act="open" data-v="${w.id}">Abrir</button></div>`).join(""):""}
- </div><div><h3>Biblioteca</h3>${libFilter()}<div id="lib">${libList(true)}</div></div></div>`;
-}
-function vTreino(){
- if(!S.students.length)return `<h2>Meu treino</h2><div class="card empty">Nenhum aluno cadastrado. Peça ao personal para cadastrar você (aba Personal &gt; Alunos).</div>`;
- if(!U.sid||!stu(U.sid))U.sid=S.students[0].id;
- const who=`<label>Você é (identidade de demonstração, sem login real)<select data-f="sid">${stuOpts(U.sid)}</select></label>`;
- const a=S.active&&S.active.sid===U.sid?S.active:null;
- if(a){const w=S.workouts.find(x=>x.id===a.wid);
-  return `<h2>${esc(w.name||"Treino")}</h2>${who}${w.notes?`<p class="mute">Observação do profissional: ${esc(w.notes)}</p>`:""}`+
-  w.items.map((it,i)=>{const e=LIB[it.ex];return `<div class="card"><h3>${e.n}</h3><div class="mute">Prescrito: ${it.sets}×${esc(it.reps)}${it.load!==""?" · "+esc(it.load)+" kg":""} · descanso ${it.rest}s · ${e.g}</div><div class="ph" style="margin:8px 0">Mídia demonstrativa pendente</div>`+
-  a.logs[i].map((l,j)=>`<div class="set"><span class="mute">${j+1}</span><input type="number" step="0.5" min="0" placeholder="kg (${esc(it.load)||"—"})" data-l="${i}.${j}" data-k="load" value="${esc(l.load)}" aria-label="Carga realizada série ${j+1}"><input type="number" min="0" placeholder="reps (${esc(it.reps)})" data-l="${i}.${j}" data-k="reps" value="${esc(l.reps)}" aria-label="Repetições realizadas série ${j+1}"><input type="checkbox" data-l="${i}.${j}" data-k="done" data-rest="${it.rest}" ${l.done?"checked":""} aria-label="Série ${j+1} concluída"></div>`).join("")+`</div>`}).join("")+
-  `<div class="row"><button class="btn p" data-act="finish">Finalizar treino</button><button class="btn d" data-act="cancel">Descartar sessão</button></div><p class="mute">Você pode sair e voltar: os registros ficam salvos neste dispositivo.</p>`;
- }
- const p=pubOf(U.sid);
- return `<h2>Meu treino</h2>${who}`+(p?`<div class="card"><h3>${esc(p.name||"Treino")}</h3><div class="mute">${esc(p.goal)} · ${p.items.length} exercício(s) · versão ${p.v}</div><ul>${p.items.map(it=>`<li>${LIB[it.ex].n} — ${it.sets}×${esc(it.reps)}</li>`).join("")}</ul><button class="btn p" data-act="start" data-v="${p.id}" ${p.items.length?"":"disabled"}>Iniciar treino</button></div>`:`<div class="card empty">Nenhum treino publicado para você ainda. Quando o personal publicar, ele aparece aqui.</div>`);
-}
-function vHist(){
- if(!S.students.length)return `<h2>Histórico</h2><div class="card empty">Sem alunos cadastrados.</div>`;
- if(!U.sid||!stu(U.sid))U.sid=S.students[0].id;
- const l=S.sessions.filter(x=>x.sid===U.sid).sort((a,b)=>b.end-a.end);
- return `<h2>Histórico</h2><label>Aluno<select data-f="sid">${stuOpts(U.sid)}</select></label>`+(l.length?l.map(s=>{const w=S.workouts.find(x=>x.id===s.wid);const sets=s.logs.flat().filter(x=>x.done).length;
- const vol=s.logs.flat().filter(x=>x.done).reduce((t,x)=>t+(+x.load||0)*(+x.reps||0),0);
- return `<div class="card"><div class="row sp"><strong>${esc(w?w.name:"Treino")}</strong><span class="mute">${new Date(s.end).toLocaleString("pt-BR")}</span></div><div class="mute">Duração: ${fmt((s.end-s.start)/1000)} · ${sets} série(s) concluída(s) · volume ${Math.round(vol)} kg</div></div>`}).join(""):`<div class="card empty">Nenhuma sessão concluída. Inicie um treino em Meu treino.</div>`);
-}
+function cfgScreen(){return `<div class="card"><h2>Conectar ao Supabase</h2><p class="mute">Cole a URL do projeto e a chave <b>anon public</b> (Settings &gt; API). Nunca cole a chave service_role.</p><form data-form="cfg"><label>URL do projeto<input name="u" required placeholder="https://xxxx.supabase.co"></label><label>Chave anon public<input name="k" required></label><button class="btn p">Salvar e conectar</button></form></div>`}
+function authScreen(){const su=U.mode==="signup";return `<div class="card"><h2>${su?"Criar conta":"Entrar"}</h2><form data-form="auth">${su?`<label>Nome<input name="name" required maxlength="120" autocomplete="name"></label>`:""}<label>E-mail<input name="email" type="email" required autocomplete="email"></label><label>Senha (mínimo 8 caracteres)<input name="pw" type="password" required minlength="8" autocomplete="${su?"new-password":"current-password"}"></label><div class="row"><button class="btn p">${su?"Criar conta":"Entrar"}</button><button type="button" class="btn" data-act="mode">${su?"Já tenho conta":"Criar conta nova"}</button></div></form></div>`}
 
-/* timer de descanso (baseado em horário, não em contagem) */
+async function init(){
+ if(!cfg.url||!cfg.key){$("#nav").innerHTML="";return show(cfgScreen())}
+ sb=supabase.createClient(cfg.url,cfg.key);
+ const {data}=await sb.auth.getSession();U.user=data.session?data.session.user:null;route();
+}
+async function route(){
+ $("#nav").innerHTML="";$("#out").style.display=U.user?"":"none";
+ if(!U.user){$("#who").textContent="";return show(authScreen())}
+ $("#who").textContent=(U.user.user_metadata&&U.user.user_metadata.full_name)||U.user.email;
+ try{U.mems=await q(sb.from("organization_members").select("org_id,role,organizations(name)").eq("user_id",U.user.id).eq("active",true))}catch(e){return}
+ U.org=U.mems.find(m=>U.org&&m.org_id===U.org.org_id)||U.mems[0]||null;
+ if(!U.org){U.tab="conta";return nav()}
+ if(!U.tab||!tabs().some(t=>t[0]===U.tab))U.tab=tabs()[0][0];
+ nav();
+}
+const tabs=()=>(U.org?(trainer()?[["plans","Treinos"],["team",staff()?"Equipe e alunos":"Meus alunos"]]:[["mine","Meu treino"],["hist","Histórico"]]):[]).concat([["conta","Conta"]]);
+function nav(){$("#nav").innerHTML=tabs().map(t=>`<button data-act="tab" data-v="${t[0]}" ${U.tab===t[0]?'aria-current="page"':""}>${t[1]}</button>`).join("");view()}
+async function view(){
+ show("Carregando…");
+ try{show(await ({conta:vConta,team:vTeam,plans:vPlans,mine:vMine,hist:vHist}[U.tab])())}catch(e){console.error(e);show(`<div class="card empty">Não foi possível carregar. Verifique a conexão e as migrations do banco.</div>`)}
+}
+async function vConta(){
+ return `<h2>Conta</h2><div class="card"><p>${esc(U.user.email)}</p><p class="mute">Seu ID (envie ao gestor da academia para ser adicionado):</p><code>${U.user.id}</code></div>`+
+ (U.mems.length>1?`<div class="card"><label>Organização ativa<select data-org>${U.mems.map(m=>`<option value="${m.org_id}" ${m.org_id===U.org.org_id?"selected":""}>${esc(m.organizations.name)} (${RP[m.role]})</option>`).join("")}</select></label></div>`:"")+
+ `<div class="card"><h3>${U.org?"Criar outra academia ou consultório":"Você ainda não faz parte de nenhuma organização"}</h3><p class="mute">${U.org?"":"Crie a sua, ou envie seu ID acima para quem administra uma academia."}</p><form data-form="org"><label>Nome<input name="n" required minlength="2" maxlength="120"></label><button class="btn p">Criar organização</button></form></div>`;
+}
+async function vTeam(){
+ const ms=await q(sb.from("organization_members").select("user_id,role,active,profiles(full_name)").eq("org_id",oid()).order("created_at"));
+ const rel=staff()?await q(sb.from("trainer_student_relationships").select("trainer_id,student_id,active").eq("org_id",oid())):[];
+ const nm=id=>{const m=ms.find(x=>x.user_id===id);return esc((m&&m.profiles&&m.profiles.full_name)||"Sem nome")};
+ const trs=ms.filter(m=>m.active&&["owner","manager","trainer"].includes(m.role));
+ return `<h2>${staff()?"Equipe e alunos":"Meus alunos"}</h2>`+
+ (staff()?`<form class="card" data-form="member"><h3>Adicionar pessoa</h3><p class="mute">A pessoa cria a conta, abre Conta e envia o ID para você.</p><div class="row"><label style="flex:2;min-width:220px;margin:0">ID da pessoa<input name="id" required pattern="[0-9a-fA-F-]{36}"></label><label style="flex:1;margin:0">Função<select name="role"><option value="student">Aluno</option><option value="trainer">Personal</option><option value="manager">Gestor</option></select></label><button class="btn p" style="align-self:end">Adicionar</button></div></form>`:"")+
+ ms.map(m=>{const links=rel.filter(r=>r.student_id===m.user_id&&r.active).map(r=>nm(r.trainer_id)).join(", ");
+ return `<div class="card"><div class="row sp"><div><h3>${nm(m.user_id)} <span class="tag">${RP[m.role]}</span> ${m.active?"":'<span class="tag">inativo</span>'}</h3>${m.role==="student"&&staff()?`<span class="mute">Personal: ${links||"nenhum vinculado"}</span>`:""}</div>
+ ${staff()&&m.role!=="owner"?`<div class="row">${m.role==="student"&&m.active?`<select data-trsel="${m.user_id}" aria-label="Personal">${trs.map(t=>`<option value="${t.user_id}">${nm(t.user_id)}</option>`).join("")}</select><button class="btn" data-act="link" data-v="${m.user_id}">Vincular</button>`:""}<button class="btn ${m.active?"d":""}" data-act="toggle" data-v="${m.user_id}" data-a="${m.active}">${m.active?"Desativar":"Reativar"}</button></div>`:""}</div></div>`}).join("")||`<div class="card empty">Nenhuma pessoa ainda.</div>`;
+}
+async function vPlans(){
+ if(U.b)return vBuilder();
+ const ms=await q(sb.from("organization_members").select("user_id,role,profiles(full_name)").eq("org_id",oid()).eq("role","student").eq("active",true));
+ const nm=id=>{const m=ms.find(x=>x.user_id===id);return esc((m&&m.profiles&&m.profiles.full_name)||"Sem nome")};
+ U.plans=await q(sb.from("workout_plans").select("id,name,goal,notes,student_id,workout_plan_versions(version,status)").eq("org_id",oid()).order("created_at",{ascending:false}));
+ return `<h2>Treinos</h2>`+(ms.length?`<form class="card" data-form="plan"><h3>Novo treino</h3><div class="row"><label style="flex:1;min-width:160px;margin:0">Aluno<select name="s">${ms.map(m=>`<option value="${m.user_id}">${nm(m.user_id)}</option>`).join("")}</select></label><label style="flex:2;min-width:200px;margin:0">Nome do treino<input name="n" required maxlength="120"></label><button class="btn p" style="align-self:end">Criar</button></div></form>`:`<div class="card empty">Nenhum aluno disponível. ${staff()?"Adicione alunos na aba Equipe.":"Peça ao gestor para vincular alunos a você."}</div>`)+
+ (U.plans.map(p=>{const vs=p.workout_plan_versions||[],l=vs.reduce((a,b)=>b.version>a.version?b:a,{version:0,status:""});
+ return `<div class="card row sp"><div><h3>${esc(p.name)}</h3><span class="mute">${nm(p.student_id)} · v${l.version} ${l.status==="published"?"publicada":l.status==="draft"?"rascunho":"arquivada"}</span></div><button class="btn" data-act="open" data-v="${p.id}">Abrir</button></div>`}).join("")||"");
+}
+async function openPlan(id){
+ const vs=await q(sb.from("workout_plan_versions").select("id,version,status,workout_plan_items(position,exercise_id,sets,reps,prescribed_load_kg,rest_seconds,exercise_library(name))").eq("plan_id",id).order("version",{ascending:false}));
+ const v=vs.find(x=>x.status==="draft")||vs[0],p=U.plans.find(x=>x.id===id);
+ if(!U.lib.length)U.lib=await q(sb.from("exercise_library").select("id,name,muscle_group").order("muscle_group").order("name"));
+ U.b={plan:id,name:p.name,goal:p.goal,notes:p.notes,vid:v.id,v:v.version,status:v.status,items:v.workout_plan_items.sort((a,b)=>a.position-b.position).map(i=>({ex:i.exercise_id,name:i.exercise_library?i.exercise_library.name:"Exercício",sets:i.sets,reps:i.reps,load:i.prescribed_load_kg??"",rest:i.rest_seconds}))};
+ view();
+}
+function vBuilder(){const b=U.b,ro=b.status!=="draft",gs=[...new Set(U.lib.map(e=>e.muscle_group))];
+ return `<button class="btn" data-act="back">Voltar</button><h2>${esc(b.name)} <span class="tag">${ro?"v"+b.v+" publicada":"rascunho v"+b.v}</span></h2>`+
+ (ro?`<div class="card"><p class="mute">Uma versão publicada não pode ser editada. Crie uma nova versão para alterar; a anterior fica no histórico.</p><button class="btn p" data-act="newver">Criar nova versão</button></div>`:
+ `<div class="card"><label>Nome<input data-b="name" value="${esc(b.name)}" maxlength="120"></label><label>Objetivo<input data-b="goal" value="${esc(b.goal)}" maxlength="200"></label><label>Observações para o aluno<input data-b="notes" value="${esc(b.notes)}" maxlength="500"></label></div>`)+
+ (b.items.length?b.items.map((it,i)=>`<div class="card"><div class="row sp"><strong>${i+1}. ${esc(it.name)}</strong>${ro?"":`<span class="row"><button class="btn" data-act="up" data-v="${i}" ${i?"":"disabled"}>Subir</button><button class="btn" data-act="dn" data-v="${i}" ${i<b.items.length-1?"":"disabled"}>Descer</button><button class="btn d" data-act="rm" data-v="${i}">Remover</button></span>`}</div><div class="g4" style="margin-top:8px"><label>Séries<input type="number" min="1" max="20" data-i="${i}" data-k="sets" value="${it.sets}" ${ro?"disabled":""}></label><label>Reps<input data-i="${i}" data-k="reps" value="${esc(it.reps)}" maxlength="20" ${ro?"disabled":""}></label><label>Carga kg<input type="number" min="0" step="0.5" data-i="${i}" data-k="load" value="${esc(it.load)}" ${ro?"disabled":""}></label><label>Descanso s<input type="number" min="0" max="900" data-i="${i}" data-k="rest" value="${it.rest}" ${ro?"disabled":""}></label></div></div>`).join(""):`<div class="card empty">Treino sem exercícios.</div>`)+
+ (ro?"":`<div class="card row"><label style="flex:1;min-width:200px;margin:0">Adicionar exercício<select id="exsel">${gs.map(g=>`<optgroup label="${esc(g)}">${U.lib.filter(e=>e.muscle_group===g).map(e=>`<option value="${e.id}">${esc(e.name)}</option>`).join("")}</optgroup>`).join("")}</select></label><button class="btn" style="align-self:end" data-act="addex">Adicionar</button></div><div class="row"><button class="btn" data-act="save">Salvar rascunho</button><button class="btn p" data-act="pub">Publicar para o aluno</button></div>`);
+}
+async function saveDraft(){const b=U.b;
+ await q(sb.from("workout_plans").update({name:b.name,goal:b.goal,notes:b.notes}).eq("id",b.plan));
+ await q(sb.from("workout_plan_items").delete().eq("version_id",b.vid));
+ if(b.items.length)await q(sb.from("workout_plan_items").insert(b.items.map((it,i)=>({version_id:b.vid,org_id:oid(),position:i,exercise_id:it.ex,sets:it.sets||1,reps:it.reps||"10",prescribed_load_kg:it.load===""?null:+it.load,rest_seconds:it.rest||0,notes:""}))));
+}
+const RS=`id,position,sets,reps,prescribed_load_kg,rest_seconds,exercise_library(name,muscle_group)`;
+async function vMine(){
+ const ses=await q(sb.from("workout_sessions").select("id,version_id").eq("org_id",oid()).eq("student_id",U.user.id).eq("status","in_progress").limit(1));
+ if(ses.length)return runSession(ses[0]);
+ const ps=await q(sb.from("workout_plans").select(`id,name,goal,notes,workout_plan_versions(id,version,status)`).eq("org_id",oid()).eq("student_id",U.user.id));
+ const list=ps.map(p=>({p,v:(p.workout_plan_versions||[]).find(v=>v.status==="published")})).filter(x=>x.v);
+ return `<h2>Meu treino</h2>`+(list.map(x=>`<div class="card"><h3>${esc(x.p.name)}</h3><p class="mute">${esc(x.p.goal)} · versão ${x.v.version}</p><button class="btn p" data-act="start" data-v="${x.v.id}">Iniciar treino</button></div>`).join("")||`<div class="card empty">Nenhum treino publicado para você ainda. Quando o personal publicar, ele aparece aqui.</div>`);
+}
+async function runSession(s){
+ const v=await q(sb.from("workout_plan_versions").select(`id,workout_plans(name,notes),workout_plan_items(${RS})`).eq("id",s.version_id).maybeSingle());
+ if(!v)return `<div class="card"><p>Esta sessão pertence a uma versão que foi substituída.</p><button class="btn d" data-act="discard" data-v="${s.id}">Descartar sessão</button></div>`;
+ const lg=await q(sb.from("exercise_set_logs").select("id,item_id,set_number,done,performed_load_kg,performed_reps").eq("session_id",s.id));
+ const logs={};lg.forEach(l=>logs[l.item_id+"."+l.set_number]={id:l.id,done:l.done,load:l.performed_load_kg??"",reps:l.performed_reps??""});
+ U.s={id:s.id,logs,chain:Promise.resolve()};
+ const items=v.workout_plan_items.sort((a,b)=>a.position-b.position);
+ return `<h2>${esc(v.workout_plans.name)}</h2>${v.workout_plans.notes?`<p class="mute">Observação do profissional: ${esc(v.workout_plans.notes)}</p>`:""}`+items.map(it=>`<div class="card"><h3>${esc(it.exercise_library.name)}</h3><div class="mute">Prescrito: ${it.sets}×${esc(it.reps)}${it.prescribed_load_kg!=null?" · "+it.prescribed_load_kg+" kg":""} · descanso ${it.rest_seconds}s</div>`+
+ Array.from({length:it.sets},(_,j)=>{const l=logs[it.id+"."+(j+1)]||{};return `<div class="set"><span class="mute">${j+1}</span><input type="number" step="0.5" min="0" placeholder="kg" data-l="${it.id}.${j+1}" data-k="load" value="${esc(l.load)}" aria-label="Carga série ${j+1}"><input type="number" min="0" placeholder="reps" data-l="${it.id}.${j+1}" data-k="reps" value="${esc(l.reps)}" aria-label="Repetições série ${j+1}"><input type="checkbox" data-l="${it.id}.${j+1}" data-k="done" data-rest="${it.rest_seconds}" ${l.done?"checked":""} aria-label="Série ${j+1} concluída"></div>`}).join("")+`</div>`).join("")+
+ `<div class="row"><button class="btn p" data-act="finish" data-v="${s.id}">Finalizar treino</button><button class="btn d" data-act="discard" data-v="${s.id}">Descartar sessão</button></div>`;
+}
+function writeLog(key,patch){const [item,set]=key.split(".");U.s.chain=U.s.chain.then(async()=>{
+ const L=U.s.logs[key]||(U.s.logs[key]={});Object.assign(L,patch);
+ const row={done:!!L.done,performed_load_kg:L.load===""||L.load==null?null:+L.load,performed_reps:L.reps===""||L.reps==null?null:parseInt(L.reps)};
+ try{if(L.id)await q(sb.from("exercise_set_logs").update(row).eq("id",L.id));else{const r=await q(sb.from("exercise_set_logs").insert({session_id:U.s.id,org_id:oid(),item_id:item,set_number:+set,...row}).select("id").single());L.id=r.id}}catch(e){}})}
+async function vHist(){
+ const ss=await q(sb.from("workout_sessions").select("id,started_at,finished_at").eq("org_id",oid()).eq("student_id",U.user.id).eq("status","finished").order("finished_at",{ascending:false}).limit(50));
+ return `<h2>Histórico</h2>`+(ss.map(s=>`<div class="card row sp"><strong>${new Date(s.finished_at).toLocaleString("pt-BR")}</strong><span class="mute">Duração: ${fmt((new Date(s.finished_at)-new Date(s.started_at))/1000)}</span></div>`).join("")||`<div class="card empty">Nenhum treino concluído ainda.</div>`);
+}
 let tEnd=0,tInt=null;
-function tick(){const r=Math.ceil((tEnd-Date.now())/1000);if(r<=0){tstop();toast("Descanso terminado");try{navigator.vibrate&&navigator.vibrate(200)}catch(e){}return}$("#tl").textContent="Descanso "+fmt(r)}
-function tstart(s){if(!s)return;tEnd=Date.now()+s*1000;$("#timer").classList.add("on");clearInterval(tInt);tInt=setInterval(tick,250);tick()}
+function tstart(s){if(!s)return;tEnd=Date.now()+s*1000;$("#timer").classList.add("on");clearInterval(tInt);tInt=setInterval(()=>{const r=Math.ceil((tEnd-Date.now())/1000);if(r<=0){tstop();toast("Descanso terminado");return}$("#tl").textContent="Descanso "+fmt(r)},250)}
 function tstop(){clearInterval(tInt);$("#timer").classList.remove("on")}
 
-function saveDraft(status){
- const d=U.draft;
- if(status==="publicado"){
-  if(!d.name.trim())return toast("Dê um nome ao treino antes de publicar.");
-  if(!d.items.length)return toast("Adicione ao menos um exercício.");
- }
- const prev=S.workouts.filter(w=>w.sid===d.sid&&w.status==="publicado");
- if(status==="publicado"){
-  const mx=Math.max(0,...S.workouts.filter(w=>w.sid===d.sid).map(w=>w.v));
-  prev.forEach(w=>w.status="arquivado");
-  const ex=S.workouts.find(w=>w.id===d.id);
-  if(ex&&ex.status==="rascunho"){d.v=mx+1}else if(ex){d.id=uid();d.v=mx+1}else d.v=mx+1;
- }
- d.status=status;
- const i=S.workouts.findIndex(w=>w.id===d.id);
- const copy=JSON.parse(JSON.stringify(d));
- if(i>=0)S.workouts[i]=copy;else S.workouts.push(copy);
- U.dirty=false;save();toast(status==="publicado"?"Publicado. O aluno já pode ver o treino.":"Rascunho salvo.");render();
-}
-
-document.addEventListener("click",e=>{
- const b=e.target.closest("[data-act]");if(!b)return;const a=b.dataset.act,v=b.dataset.v,d=U.draft;
- if(a==="role"){if(U.dirty&&!confirm("Há alterações não salvas no montador. Sair mesmo assim?"))return;U.role=v;U.tab=TABS[v][0][0];render()}
- else if(a==="tab"){if(U.tab==="montador"&&U.dirty&&!confirm("Há alterações não salvas. Sair mesmo assim?"))return;U.tab=v;render()}
- else if(a==="build"){U.sid=v;U.draft=null;U.dirty=false;U.tab="montador";render()}
- else if(a==="delstu"){if(confirm("Remover este aluno? O histórico dele também será removido deste dispositivo.")){S.students=S.students.filter(s=>s.id!==v);S.workouts=S.workouts.filter(w=>w.sid!==v);S.sessions=S.sessions.filter(s=>s.sid!==v);if(S.active&&S.active.sid===v)S.active=null;U.draft=null;save();render()}}
- else if(a==="addex"){d.items.push({ex:+v,sets:3,reps:"10",load:"",rest:60});U.dirty=true;render()}
- else if(a==="up"||a==="dn"){const i=+v,j=a==="up"?i-1:i+1;[d.items[i],d.items[j]]=[d.items[j],d.items[i]];U.dirty=true;render()}
- else if(a==="dup"){d.items.splice(+v+1,0,{...d.items[+v]});U.dirty=true;render()}
- else if(a==="rm"){d.items.splice(+v,1);U.dirty=true;render()}
- else if(a==="draft"){saveDraft("rascunho")}
- else if(a==="publish"){saveDraft("publicado")}
- else if(a==="newd"){if(U.dirty&&!confirm("Descartar alterações não salvas?"))return;U.draft=null;U.dirty=false;render()}
- else if(a==="open"){const w=S.workouts.find(x=>x.id===v);U.draft=JSON.parse(JSON.stringify(w));U.dirty=false;render()}
- else if(a==="start"){const w=S.workouts.find(x=>x.id===v);S.active={wid:v,sid:U.sid,start:Date.now(),logs:w.items.map(it=>Array.from({length:it.sets},()=>({load:"",reps:"",done:false})))};save();render()}
- else if(a==="cancel"){if(confirm("Descartar esta sessão? Os registros serão perdidos.")){S.active=null;tstop();save();render()}}
- else if(a==="finish"){const n=S.active.logs.flat().filter(x=>x.done).length;if(!n&&!confirm("Nenhuma série foi marcada como concluída. Finalizar mesmo assim?"))return;
-  S.sessions.push({id:uid(),wid:S.active.wid,sid:S.active.sid,start:S.active.start,end:Date.now(),logs:S.active.logs});S.active=null;tstop();save();toast("Treino finalizado e registrado.");U.tab="hist";render()}
- else if(a==="tadd"){tEnd+=15000;tick()}
- else if(a==="tstop"){tstop()}
+document.addEventListener("click",async e=>{const x=e.target.closest("[data-act]");if(!x)return;const a=x.dataset.act,v=x.dataset.v,b=U.b;
+ try{
+ if(a==="tab"){if(b&&U.tab==="plans"&&!confirm("Sair do montador? Alterações não salvas serão perdidas."))return;U.b=null;U.tab=v;nav()}
+ else if(a==="mode"){U.mode=U.mode==="login"?"signup":"login";show(authScreen())}
+ else if(a==="toggle"){await q(sb.from("organization_members").update({active:x.dataset.a!=="true"}).eq("org_id",oid()).eq("user_id",v));view()}
+ else if(a==="link"){const t=document.querySelector(`[data-trsel="${v}"]`).value;await q(sb.from("trainer_student_relationships").insert({org_id:oid(),trainer_id:t,student_id:v}));toast("Aluno vinculado.");view()}
+ else if(a==="open")await openPlan(v);
+ else if(a==="back"){if(!confirm("Voltar? Alterações não salvas serão perdidas."))return;U.b=null;view()}
+ else if(a==="addex"){const id=$("#exsel").value,e2=U.lib.find(z=>z.id===id);b.items.push({ex:id,name:e2.name,sets:3,reps:"10",load:"",rest:60});view()}
+ else if(a==="up"||a==="dn"){const i=+v,j=a==="up"?i-1:i+1;[b.items[i],b.items[j]]=[b.items[j],b.items[i]];view()}
+ else if(a==="rm"){b.items.splice(+v,1);view()}
+ else if(a==="save"){await saveDraft();toast("Rascunho salvo.")}
+ else if(a==="pub"){if(!b.items.length)return toast("Adicione ao menos um exercício antes de publicar.");await saveDraft();await q(sb.rpc("publish_workout_version",{_version:b.vid}));toast("Publicado. O aluno já pode ver o treino.");U.b=null;view()}
+ else if(a==="newver"){await q(sb.rpc("create_workout_version",{_plan:b.plan}));await openPlan(b.plan)}
+ else if(a==="start"){await q(sb.from("workout_sessions").insert({org_id:oid(),student_id:U.user.id,version_id:v}));view()}
+ else if(a==="finish"){await U.s.chain;if(!confirm("Finalizar o treino? Não será possível editar depois."))return;await q(sb.from("workout_sessions").update({status:"finished"}).eq("id",v));tstop();toast("Treino finalizado.");U.tab="hist";nav()}
+ else if(a==="discard"){if(!confirm("Descartar esta sessão?"))return;await q(sb.from("workout_sessions").update({status:"discarded"}).eq("id",v));tstop();view()}
+ else if(a==="tstop")tstop();
+ }catch(err){console.error(err)}
 });
-document.addEventListener("submit",e=>{e.preventDefault();const f=e.target;if(f.dataset.form==="aluno"){const n=f.n.value.trim();if(!n)return toast("Informe o nome do aluno.");S.students.push({id:uid(),name:n});save();toast("Aluno cadastrado.");render()}});
-document.addEventListener("input",e=>{
- const t=e.target;
- if(t.dataset.d){U.draft[t.dataset.d]=t.value;U.dirty=true;if(t.dataset.d==="sid"){render()}}
- else if(t.dataset.i!==undefined){const it=U.draft.items[+t.dataset.i],k=t.dataset.k;it[k]=(k==="sets"||k==="rest")?Math.max(0,parseInt(t.value)||0):t.value;U.dirty=true}
- else if(t.dataset.f==="fq"){U.fq=t.value;const l=$("#lib")||$(".grid.two");if(U.tab==="montador")$("#lib").innerHTML=libList(true);else render();if(U.tab==="biblio"){const i=$("[data-f=fq]");i.focus();i.setSelectionRange(99,99)}}
- else if(t.dataset.l){const[i,j]=t.dataset.l.split(".").map(Number),k=t.dataset.k,l=S.active.logs[i][j];
-  if(k==="done"){l.done=t.checked;if(t.checked)tstart(+t.dataset.rest)}else l[k]=t.value;save()}
+document.addEventListener("submit",async e=>{e.preventDefault();const f=e.target,k=f.dataset.form;if(!k)return;
+ try{
+ if(k==="cfg"){ls.s("evx_url",f.u.value.trim());ls.s("evx_key",f.k.value.trim());location.reload()}
+ else if(k==="auth"){const em=f.email.value.trim(),pw=f.pw.value;
+  if(U.mode==="signup"){const r=await sb.auth.signUp({email:em,password:pw,options:{data:{full_name:f.name.value.trim()},emailRedirectTo:location.href.split("#")[0]}});
+   if(r.error)return toast(r.error.message);
+   if(!r.data.session){U.mode="login";show(authScreen());return toast("Conta criada. Confirme o e-mail e depois entre.")}
+   U.user=r.data.user}
+  else{const r=await sb.auth.signInWithPassword({email:em,password:pw});if(r.error)return toast("E-mail ou senha incorretos.");U.user=r.data.user}
+  route()}
+ else if(k==="org"){const id=await q(sb.rpc("create_organization",{_name:f.n.value}));U.org={org_id:id};U.tab=null;toast("Organização criada.");route()}
+ else if(k==="member"){await q(sb.from("organization_members").insert({org_id:oid(),user_id:f.id.value.trim(),role:f.role.value}));toast("Pessoa adicionada.");view()}
+ else if(k==="plan"){const p=await q(sb.from("workout_plans").insert({org_id:oid(),trainer_id:U.user.id,student_id:f.s.value,name:f.n.value.trim()}).select("id").single());
+  await q(sb.rpc("create_workout_version",{_plan:p.id}));U.plans=await q(sb.from("workout_plans").select("id,name,goal,notes,student_id,workout_plan_versions(version,status)").eq("id",p.id));await openPlan(p.id)}
+ }catch(err){console.error(err)}
+});
+document.addEventListener("input",e=>{const t=e.target;
+ if(t.dataset.b&&U.b)U.b[t.dataset.b]=t.value;
+ else if(t.dataset.i!==undefined&&U.b){const it=U.b.items[+t.dataset.i],k=t.dataset.k;it[k]=(k==="sets"||k==="rest")?Math.max(0,parseInt(t.value)||0):t.value}
 });
 document.addEventListener("change",e=>{const t=e.target;
- if(t.dataset.f==="fg"){U.fg=t.value;render()}
- else if(t.dataset.f==="sid"){U.sid=t.value;render()}
+ if(t.dataset.l&&U.s){const k=t.dataset.k;if(k==="done"){writeLog(t.dataset.l,{done:t.checked});if(t.checked)tstart(+t.dataset.rest)}else writeLog(t.dataset.l,{[k]:t.value})}
+ else if(t.hasAttribute("data-org")){U.org=U.mems.find(m=>m.org_id===t.value);U.tab=null;U.b=null;nav()}
 });
-window.addEventListener("beforeunload",e=>{if(U.dirty){e.preventDefault();e.returnValue=""}});
-render();
+$("#out").onclick=async()=>{await sb.auth.signOut();U={mode:"login",user:null,mems:[],org:null,tab:null,b:null,s:null,plans:[],lib:[]};tstop();route()};
+init();
 </script>
 </body>
 </html>

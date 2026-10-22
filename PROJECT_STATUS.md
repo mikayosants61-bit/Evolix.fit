@@ -56,3 +56,9 @@ Proibido nesta etapa: `supabase db reset --linked`, `supabase db push`, qualquer
 - Decisão de produto: gestores leem sessões de treino dos alunos da organização.
 - Textos legais e consentimentos exigem revisão jurídica. Use apenas dados fictícios nos testes.
 - Segredos: nunca versionar `service_role`; no frontend estático só URL e chave anon (públicas por natureza).
+
+## Atualização: frontend ligado ao Supabase (22/10/2026)
+- `index.html` reescrito: login/cadastro, organização, equipe, vínculos, montador com versões, publicação, sessões do aluno, histórico.
+  Estado: escrito; **sintaxe JavaScript verificada com `node --check`**; **não testado em navegador nem contra um Supabase real**.
+- `supabase/seed.sql` e `SETUP_SUPABASE.md` criados. Protótipo antigo preservado em `legacy/`.
+- Fora do escopo desta versão: avaliações físicas, planos/assinaturas, portfólio, IA, convites com aceite (hoje: colar o ID), gestor/personal vendo sessões dos alunos na interface, recuperação de senha, PWA.
